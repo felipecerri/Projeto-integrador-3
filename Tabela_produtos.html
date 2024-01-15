@@ -49,7 +49,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tabelaProduto">
 
                 <thead>
         
@@ -63,6 +63,7 @@
                         <th>Quantidade</th>
                         <th>Valor total</th>
                         <th>Editar</th>
+                        <th>Excluir</th>
         
                     </tr>
         
@@ -107,5 +108,105 @@
     </div>
 
 </body>
+
+<script src="jquery.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    function carregarProduto(){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/produto/listar',
+            method: 'GET',
+            success: function (data) {
+
+                $('#tabelaProduto tbody').empty();
+
+                for(let i = 0; i < data.legth; i++){
+
+                    let produto = data[i];
+
+                    let nome = $('<td>')
+                        .text(produto.nome);
+
+                    let tipo = $('<td>')
+                        .text(produto.tipo);
+                    
+                    let marca = $('<td>')
+                        .text(produto.marca);
+
+                    let valor = $('<td>')
+                        .text(produto.valor);
+
+                    let data = $('<td>')
+                        .text(produto.data);
+
+                    let quantidade = $('<td>')
+                        .text(produto.quantidade);
+
+                    let valor_total = $('<td>')
+                        .text(valor * quantidade);
+
+                    let editar = $('<a href="#"><button>Editar</button>');
+
+                    let botaoDeletar = $('<button>')
+                        .text('Excluir')
+                        .click(function(){
+                            deletarProduto(produto.id);
+                        });
+
+                    let excluir = $('<td>')
+                        .append(botaoDeletar);
+
+                    let tr = $('<tr>')
+                        .attr('data-id', produto.id)
+                        .append(nome)
+                        .append(tipo)
+                        .append(marca)
+                        .append(valor)
+                        .append(data)
+                        .append(quantidade)
+                        .append(valor_total)
+                        .append(editar)
+                        .append(excluir);
+
+                    $('#tabelaProduto tbody').append(tr);
+
+                }
+
+            }
+
+        })
+
+    };
+
+    function deletarProduto(id) {
+
+        $.ajax({
+
+            url: 'http://localhost:8080/produto/deletar/' + id,
+            method: 'DELETE',
+            success: function(data) {
+
+                alert('Produto deletado com sucesso');
+                carregarProduto();
+
+            },
+            error: function(){
+
+                alert('Não foi possivel deletar o produto');
+
+            }
+
+        })
+
+    }
+
+})
+
+</script>
 
 </html>
