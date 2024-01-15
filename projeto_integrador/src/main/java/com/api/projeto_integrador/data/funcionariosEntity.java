@@ -9,17 +9,15 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="produto")
-public class produtoEntity {
+@Table(name="funcionarios")
+public class funcionariosEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
-    private String tipo;
-    private String marca;
-    private double valor;
-    private String data;
-    private Integer quantidade;
-    
+    private Integer idade;
+    private String cpf;
+    private String cargo;
+    private double salario;
     
 }
