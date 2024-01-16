@@ -49,7 +49,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
 
-            <table class="table table-bordered" id="tabelaProduto">
+            <table class="table table-bordered" id="tabelaProduto" name="tabelaProduto">
 
                 <thead>
         
@@ -125,7 +125,7 @@ $(document).ready(function(){
 
                 $('#tabelaProduto tbody').empty();
 
-                for(let i = 0; i < data.legth; i++){
+                for(let i = 0; i < data.length; i++){
 
                     let produto = data[i];
 
@@ -141,14 +141,14 @@ $(document).ready(function(){
                     let valor = $('<td>')
                         .text(produto.valor);
 
-                    let data = $('<td>')
+                    let datatxt = $('<td>')
                         .text(produto.data);
 
                     let quantidade = $('<td>')
                         .text(produto.quantidade);
 
                     let valor_total = $('<td>')
-                        .text(valor * quantidade);
+                        .text(produto.valor * produto.quantidade);
 
                     let editar = $('<a href="#"><button>Editar</button>');
 
@@ -167,7 +167,7 @@ $(document).ready(function(){
                         .append(tipo)
                         .append(marca)
                         .append(valor)
-                        .append(data)
+                        .append(datatxt)
                         .append(quantidade)
                         .append(valor_total)
                         .append(editar)
@@ -177,6 +177,9 @@ $(document).ready(function(){
 
                 }
 
+            },
+            error: function(){
+                alert('Não foi possivel carregar a tabela da API')
             }
 
         })
@@ -203,7 +206,9 @@ $(document).ready(function(){
 
         })
 
-    }
+    };
+    
+    carregarProduto();
 
 })
 
