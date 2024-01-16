@@ -49,7 +49,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tabelaFuncionarios">
 
                 <thead>
 
@@ -61,6 +61,7 @@
                         <th>Cargo</th>
                         <th>Salario</th>
                         <th>Editar</th>
+                        <th>Excluir</th>
 
                     </tr>
 
@@ -84,12 +85,6 @@
 
             <div class="col-md-1">
 
-                <button type="button" class="btn btn-danger">Excluir</button>
-
-            </div>
-
-            <div class="col-md-1">
-
                 <button type="button" class="btn btn-warning">Aumento</button>
 
             </div>
@@ -99,5 +94,97 @@
     </div>
     
 </body>
+
+<script src="jquery.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    function carregarFuncionarios(){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/funcionario/listar',
+            method: 'GET',
+            success: function (data) {
+
+                $('#tabelaFuncionarios tbody').empty();
+
+                for(let i = 0; i < data.length; i++){
+
+                    let funcionario = data[i];
+
+                    let nome = $('<td>')
+                        .text(funcionario.nome);
+
+                    let idade = $('<td>')
+                        .text(funcionario.idade);
+
+                    let cpf = $('<td>')
+                        .text(funcionario.cpf);
+
+                    let cargo = $('<td>')
+                        .text(funcionario.cargo);
+
+                    let salario = $('<td>')
+                        .text(funcionario.salario);
+
+                    let editar = $('<a href="#"><button>Editar</button>');
+
+                    let botaoDeletar = $('<button class="btn btn-danger">')
+                        .text('Excluir')
+                        .click(function(){
+                            deletarFuncionario(funcionario.id);
+                        });
+
+                    let excluir = $('<td>')
+                        .append(botaoDeletar);
+
+                    let tr = $('<tr>')
+                        .attr('data-id', funcionario.id)
+                        .append(nome)
+                        .append(idade)
+                        .append(cpf)
+                        .append(cargo)
+                        .append(salario)
+                        .append(editar)
+                        .append(excluir);
+
+                    $('#tabelaFuncionarios tbody').append(tr);
+
+                }
+
+            },
+            error: function(){
+                alert('Não foi possivel carregar a tabela da API');
+            }
+
+        })
+
+    };
+
+    function deletarFuncionario(id){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/funcionario/deletar/' + id,
+            method: 'DELETE',
+            success: function(data){
+
+                alert('Funcionario deletado com sucesso');
+                carregarFuncionarios();
+
+            }
+
+        })
+
+    };
+
+    carregarFuncionarios();
+
+})
+
+</script>
 
 </html>
