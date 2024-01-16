@@ -46,7 +46,7 @@
 
     <div class="container mt-3">
 
-        <form action="">
+        <form id="formCriarMovimentação">
 
             <div class="mb-3 mt-3">
     
@@ -69,6 +69,22 @@
     
             </div>
 
+            <div class="mb-3 mt-3">
+    
+                <div class="form-check">
+
+                    <input type="radio" name="entrada" id="entrada" class="form-check-input" value="true" checked>Entrada
+
+                </div>
+
+                <div class="form-check">
+
+                    <input type="radio" name="entrada" id="saida" class="form-check-input" value="false" checked>Saída
+
+                </div>
+    
+            </div>
+
             <button type="submit" class="btn btn-primary">Cadastrar</button>
             
         </form>
@@ -76,5 +92,67 @@
     </div>
 
 </body>
+
+<script src="jquery.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    function criarMovimentação(movimentação){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/movimentação/adicionar',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(movimentação),
+
+            success: function (data) {
+
+                $('#descrição').val('');
+                $('#valor').val('');
+                $('#data').val('');
+
+            },
+            error: function(){
+                alert('Não foi possivel cadastrar a movimentação')
+            }
+
+        })
+
+    };
+
+    $('#formCriarMovimentação').submit(function(event){
+
+        event.preventDefault();
+
+        let descr = $('#descrição').val();
+        let valor = $('#valor').val();
+        let data = $('#data').val();
+        let entrada = $('#entrada').is(":checked");
+
+        if(!descr && !valor && !data && !entrada){
+
+            alert('Por favor, preencha todos os campos');
+            return;
+
+        }
+
+        let movimentação = {
+
+            descr: descr,
+            valor: valor,
+            data: data,
+            entrada: entrada
+
+        };
+        criarMovimentação(movimentação);
+
+    })
+
+})
+
+</script>
 
 </html>
