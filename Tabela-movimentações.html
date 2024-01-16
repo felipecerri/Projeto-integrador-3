@@ -49,7 +49,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tabelaMovimentação">
 
                 <thead>
 
@@ -58,6 +58,9 @@
                         <th>Descrição</th>
                         <th>Data</th>
                         <th>Valor</th>
+                        <th>Entrada</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
 
                     </tr>
 
@@ -90,5 +93,99 @@
     </div>
 
 </body>
+
+<script src="jquery.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    function carregarMovimentação(){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/movimentação/listar',
+            method: 'GET',
+            success: function (data) {
+
+                $('#tabelaMovimentação tbody').empty();
+
+                for(let i = 0; i < data.length; i++){
+
+                    let movimentação = data[i];
+
+                    let descr = $('<td>')
+                        .text(movimentação.descr);
+
+                    let datatxt = $('<td>')
+                        .text(movimentação.data);
+
+                    let valor = $('<td>')
+                        .text(movimentação.valor);
+
+                    if(movimentação.entrada === false){
+
+                        var entrada = $('<td>')
+                            .text('Saída');
+
+                    }else{
+
+                        var entrada = $('<td>')
+                            .text('Entrada');
+
+                    }
+
+                    let editar = $('<a href="#"><button class="btn btn-warning">Editar</button>');
+
+                    let botaoDeletar = $('<button class="btn btn-danger">')
+                        .text('Excluir')
+                        .click(function(){
+                            deletarMovimentação(movimentação.id);
+                        });
+
+                    let excluir = $('<td>')
+                        .append(botaoDeletar);
+
+                    let tr = $('<tr>')
+                        .attr('data-id', movimentação.id)
+                        .append(descr)
+                        .append(datatxt)
+                        .append(valor)
+                        .append(entrada)
+                        .append(editar)
+                        .append(excluir);
+
+                    $('#tabelaMovimentação tbody').append(tr);
+
+                }
+
+            }
+
+        })
+
+    };
+
+    function deletarMovimentação(id){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/movimentação/deletar/' + id,
+            method: 'DELETE',
+            success: function(data){
+
+                alert('Movimentação deletada com sucesso');
+                carregarMovimentação();
+
+            }
+
+        })
+
+    };
+
+    carregarMovimentação();
+
+})
+
+</script>
 
 </html>
