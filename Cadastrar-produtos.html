@@ -46,7 +46,7 @@
 
     <div class="container mt-3">
 
-        <form action="">
+        <form id="formCriarProduto">
 
             <div class="mb-3 mt-3">
     
@@ -96,8 +96,75 @@
 
     </div>
 
-
-
 </body>
+
+<script src="jquery.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    function criarProduto(produto){
+
+        $.ajax({
+
+            url: 'http://localhost:8080/produto/adicionar',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(produto),
+
+            success: function (data) {
+
+                $('#nome_produto').val('');
+                $('#validade').val('');
+                $('#valor_unitario').val('');
+                $('#quantidade').val('');
+                $('#marca').val('');
+                $('#tipo').val('');
+
+            },
+            error: function(){
+                alert('Não foi possivel cadastrar um produto na API');
+            }
+
+        })
+
+    };
+
+    $('#formCriarProduto').submit(function(event){
+
+        event.preventDefault();
+
+        let nome = $('#nome_produto').val();
+        let validade = $('#validade').val();
+        let valor_unitario = $('#valor_unitario').val();
+        let quantidade = $('#quantidade').val();
+        let marca = $('#marca').val();
+        let tipo = $('#tipo').val();
+
+        if(!nome && !validade && !valor_unitario && !quantidade && !marca && !tipo){
+
+            alert("Por favor, preencha todos os campos");
+            return
+
+        }
+
+        let produto = {
+
+            nome: nome,
+            data: validade,
+            valor: valor_unitario,
+            quantidade: quantidade,
+            marca: marca,
+            tipo: tipo
+
+        };
+        criarProduto(produto);
+
+    });
+
+})
+
+</script>
 
 </html>

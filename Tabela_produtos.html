@@ -89,12 +89,6 @@
 
         <div class="col-md-1">
 
-            <button type="button" class="btn btn-danger">Excluir</button>
-
-        </div>
-
-        <div class="col-md-1">
-
             <button type="button" class="btn btn-warning">Quantidade</button>
 
         </div>
@@ -152,7 +146,7 @@ $(document).ready(function(){
 
                     let editar = $('<a href="#"><button>Editar</button>');
 
-                    let botaoDeletar = $('<button>')
+                    let botaoDeletar = $('<button class="btn btn-danger">')
                         .text('Excluir')
                         .click(function(){
                             deletarProduto(produto.id);
