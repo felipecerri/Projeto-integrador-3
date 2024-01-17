@@ -2,6 +2,7 @@ package com.api.projeto_integrador.controller;
 
 import com.api.projeto_integrador.data.funcionariosEntity;
 import com.api.projeto_integrador.service.funcionariosService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class funcionariosController {
     
     @PostMapping("/adicionar")
     
-    public ResponseEntity<funcionariosEntity> addFuncionario(@RequestBody funcionariosEntity func){
+    public ResponseEntity<funcionariosEntity> addFuncionario(@Valid@RequestBody funcionariosEntity func){
         
         var novoFuncionario = funcionariosService.criarFuncionario(func);
         
