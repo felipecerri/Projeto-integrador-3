@@ -46,7 +46,7 @@
 
     <div class="container mt-3">
 
-        <form action="">
+        <form id="formCriarFuncionario">
 
             <div class="mb-3 mt-3">
     
@@ -90,5 +90,71 @@
     </div>
 
 </body>
+
+<script src="jquery.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+
+        function criarFuncionario(funcionario){
+
+            $.ajax({
+
+                url: 'http://localhost:8080/funcionario/adicionar',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(funcionario),
+
+                success: function (data) {
+
+                    $('#nome').val('');
+                    $('#idade').val('');
+                    $('#cpf').val('');
+                    $('#cargo').val('');
+                    $('#salario').val('');
+
+                },
+                error: function(){
+                    alert('Não foi possivel cadastrar um funcionario na API');
+                }
+
+            })
+
+        };
+
+        $('#formCriarFuncionario').submit(function (event){
+
+            event.preventDefault();
+
+            let nome = $('#nome').val();
+            let idade = $('#idade').val();
+            let cpf = $('#cpf').val();
+            let cargo = $('#cargo').val();
+            let salario = $('#salario').val();
+
+            if(!nome && !idade && !cpf && !cargo && !salario){
+
+                alert("Por favor, preencha todos os campos");
+                return
+
+            }
+
+            let funcionario = {
+
+                nome: nome,
+                idade: idade,
+                cpf: cpf,
+                cargo: cargo,
+                salario: salario
+
+            };
+            criarFuncionario(funcionario);
+
+        });
+
+    })
+
+</script>
 
 </html>
