@@ -80,13 +80,13 @@
         <div class="col-md-1"></div>
         <div class="col-md-1">
 
-            <a href="Cadastrar-movimentações.html"></a><button type="button" class="btn btn-success">Cadastrar</button>
+            <a href="Cadastrar-movimentações.html"><button type="button" class="btn btn-success">Cadastrar</button></a>
 
         </div>
 
         <div class="col-md-1">
 
-            <button type="button" class="btn btn-danger">Excluir</button>
+            Valor total: <span id="valor_total"></span>
 
         </div>
 
@@ -101,6 +101,8 @@
 $(document).ready(function(){
 
     function carregarMovimentação(){
+
+        let valor_total = 0;
 
         $.ajax({
 
@@ -120,18 +122,23 @@ $(document).ready(function(){
                     let datatxt = $('<td>')
                         .text(movimentação.data);
 
-                    let valor = $('<td>')
-                        .text(movimentação.valor);
-
                     if(movimentação.entrada === false){
 
-                        var entrada = $('<td>')
+                        var entrada = $('<td style="color:red;">')
                             .text('Saída');
+                        valor_total = valor_total - movimentação.valor;
+
+                        var valor = $('<td style="color:red;">')
+                        .text(movimentação.valor);
 
                     }else{
 
-                        var entrada = $('<td>')
+                        var entrada = $('<td style="color:green;">')
                             .text('Entrada');
+                        valor_total = valor_total + movimentação.valor;
+
+                        var valor = $('<td style="color:green;">')
+                        .text(movimentação.valor);
 
                     }
 
@@ -158,6 +165,8 @@ $(document).ready(function(){
                     $('#tabelaMovimentação tbody').append(tr);
 
                 }
+
+                $('#valor_total').text(valor_total);
 
             }
 
