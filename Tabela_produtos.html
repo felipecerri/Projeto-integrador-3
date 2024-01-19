@@ -87,18 +87,6 @@
 
         </div>
 
-        <div class="col-md-1">
-
-            <button type="button" class="btn btn-warning">Quantidade</button>
-
-        </div>
-
-        <div class="col-md-1">
-
-            <button type="button" class="btn btn-warning">Valor</button>
-
-        </div>
-
     </div>
 
 </body>
@@ -144,7 +132,7 @@ $(document).ready(function(){
                     let valor_total = $('<td>')
                         .text(produto.valor * produto.quantidade);
 
-                    let editar = $('<a href="#"><button>Editar</button>');
+                    let editar = $('<a href="Editar_produto.html?id='+produto.id+'"><button>Editar</button>');
 
                     let botaoDeletar = $('<button class="btn btn-danger">')
                         .text('Excluir')
