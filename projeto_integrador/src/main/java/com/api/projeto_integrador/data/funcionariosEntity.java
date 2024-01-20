@@ -29,7 +29,6 @@ public class funcionariosEntity {
     
     private String cargo;
     
-    @Min(1300)
     private double salario;
     
 }

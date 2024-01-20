@@ -67,6 +67,28 @@ public class funcionariosController {
         
     }
     
+    @PutMapping("/aumento/{id}")
+    
+    public ResponseEntity<funcionariosEntity> aumentoFuncionario(@PathVariable Integer id, @RequestBody funcionariosEntity func){
+        
+        if(func.getSalario() <= 0){
+            
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+            
+        }
+        
+        funcionariosEntity funcionario = funcionariosService.getFuncionarioId(id);
+        
+        double aumento = func.getSalario() + funcionario.getSalario();
+        
+        func.setSalario(aumento);
+        
+        var funcionarioAtualizado = funcionariosService.atualizarFuncionario(id, func);
+        
+        return new ResponseEntity<>(funcionarioAtualizado, HttpStatus.OK);
+        
+    }
+    
     @DeleteMapping("/deletar/{id}")
     
     public ResponseEntity deletarFuncionario(@PathVariable Integer id){

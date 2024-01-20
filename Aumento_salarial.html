@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
-    
+
 </head>
 
 <body>
@@ -50,29 +50,25 @@
 
             <div class="mb-3 mt-3">
 
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do funcionario">
+                <p>Nome: <span id="nome"></span></p>
 
             </div>
 
             <div class="mb-3 mt-3">
 
-                <label for="idade" class="form-label">Idade</label>
-                <input type="number" class="form-control" id="idade" name="idade" placeholder="Idade do funcionario">
+                <p>Idade: <span id="idade"></span></p>
 
             </div>
 
             <div class="mb-3 mt-3">
 
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="XXX.XXX.XXX-XX" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}">
+                <p>CPF: <span id="cpf"></span></p>
 
             </div>
 
             <div class="mb-3 mt-3">
 
-                <label for="cargo" class="cargo">Cargo</label>
-                <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo do funcionario">
+                <p>Cargo: <span id="cargo"></span></p>
 
             </div>
 
@@ -82,11 +78,16 @@
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Editar</button>
+            <div class="mb-3 mt-3">
+
+                <label for="aumento" class="form-label">Aumento</label>
+                <input type="number" class="form-control" id="aumento" name="aumento" placeholder="Valor a ser somado ao salario original">
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Aumento</button>
 
         </form>
-
-        <a href="#" id="aumentobtn"><button class="btn btn-warning">Aumento</button>
 
     </div>
 
@@ -103,8 +104,6 @@
             const urlParams = new URLSearchParams(window.location.search);
             const valorId = urlParams.get('id');
 
-
-
             $.ajax({
 
                 url: 'http://localhost:8080/funcionario/pesquisar/' + valorId,
@@ -112,13 +111,11 @@
 
                 success: function (data) {
 
-                    $('#nome').val(data.nome);
-                    $('#idade').val(data.idade);
-                    $('#cpf').val(data.cpf);
-                    $('#cargo').val(data.cargo);
+                    $('#nome').text(data.nome);
+                    $('#idade').text(data.idade);
+                    $('#cpf').text(data.cpf);
+                    $('#cargo').text(data.cargo);
                     $('#salario').text(data.salario);
-
-                    $('#aumentobtn').attr("href","Aumento_salarial.html?id="+valorId)
 
                 }
 
@@ -132,7 +129,7 @@
 
             $.ajax({
 
-                url: 'http://localhost:8080/funcionario/atualizar/' + id,
+                url: 'http://localhost:8080/funcionario/aumento/' + id,
                 method: 'PUT',
                 contentType: 'application/json',
                 data: JSON.stringify(funcionario),
@@ -154,11 +151,11 @@
 
             event.preventDefault();
 
-            let nome = $('#nome').val();
-            let idade = $('#idade').val();
-            let cpf = $('#cpf').val();
-            let cargo = $('#cargo').val();
-            let salario = $('#salario').text();
+            let nome = $('#nome').text();
+            let idade = $('#idade').text();
+            let cpf = $('#cpf').text();
+            let cargo = $('#cargo').text();
+            let salario = $('#aumento').val();
 
             let funcionario = {
 
