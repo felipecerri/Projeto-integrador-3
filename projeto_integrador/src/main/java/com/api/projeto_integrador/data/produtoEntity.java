@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -17,19 +18,27 @@ public class produtoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
+    @NotBlank(message="Nome obrigatorio")
     @Size(min=2, message="Digite um nome com no minimo 2 caracteres")
     private String nome;
+    
+    @NotBlank(message="Tipo obrigatorio")
     @Size(min=2, message="Digite um nome com no tipo 2 caracteres")
     private String tipo;
     
+    @NotBlank(message="Marca obrigatoria")
     @Size(min=2, message="Digite um nome com no marca 2 caracteres")
     private String marca;
     
+    @NotBlank(message="Valor obrigatorio")
     @Min(0)
     private double valor;
     
+    
+    @NotBlank(message="Validade obrigatoria")
     private String data;
     
+    @NotBlank(message="Quantidade obrigatoria")
     @Min(0)
     private Integer quantidade;
     
