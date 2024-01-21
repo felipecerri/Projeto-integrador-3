@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <title>Tabela de funcionarios</title>
 
 </head>
 
@@ -79,13 +80,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-1">
 
-                <a href="Cadastrar-funcionarios.html"></a><button type="button" class="btn btn-success">Cadastrar</button>
-
-            </div>
-
-            <div class="col-md-1">
-
-                <button type="button" class="btn btn-warning">Aumento</button>
+                <a href="Cadastrar-funcionarios.html"><button type="button" class="btn btn-success">Cadastrar</button>
 
             </div>
             
@@ -130,7 +125,7 @@ $(document).ready(function(){
                     let salario = $('<td>')
                         .text(funcionario.salario);
 
-                    let editar = $('<a href="#"><button class="btn btn-warning">Editar</button>');
+                    let editar = $('<a href="Editar_funcionario.html?id='+funcionario.id+'"><button class="btn btn-warning">Editar</button>');
 
                     let botaoDeletar = $('<button class="btn btn-danger">')
                         .text('Excluir')
