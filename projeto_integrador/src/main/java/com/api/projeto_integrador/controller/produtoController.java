@@ -2,7 +2,10 @@ package com.api.projeto_integrador.controller;
 
 import com.api.projeto_integrador.data.produtoEntity;
 import com.api.projeto_integrador.service.produtoService;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,10 +53,22 @@ public class produtoController {
     
     public ResponseEntity<produtoEntity> addProduto(@RequestBody produtoEntity produto){
         
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d", Locale.ENGLISH);
+        
+        LocalDate dateTime = LocalDate.parse(produto.getData(),formatter);
+        
+        if(dateTime.isBefore(LocalDate.now())){
+            
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT );
+            
+        }else{
+        
         var novoProduto = produtoService.criarProduto(produto);
         
         return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
         
+        }
     }
     
     @PutMapping("/atualizar/{id}")

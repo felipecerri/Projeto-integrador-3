@@ -32,14 +32,14 @@ public class produtoEntity {
     private String marca;
     
     @NotNull(message="Valor obrigatorio")
-    @Min(0)
+    @Min(1)
     private double valor;
     
     @NotBlank(message="Validade obrigatoria")
     private String data;
     
     @NotNull(message="Quantidade obrigatoria")
-    @Min(0)
+    @Min(1)
     private Integer quantidade;
     
     
