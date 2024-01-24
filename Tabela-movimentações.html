@@ -143,8 +143,6 @@ $(document).ready(function(){
 
                     }
 
-                    let editar = $('<a href="#"><button class="btn btn-warning">Editar</button>');
-
                     let botaoDeletar = $('<button class="btn btn-danger">')
                         .text('Excluir')
                         .click(function(){
@@ -160,7 +158,6 @@ $(document).ready(function(){
                         .append(datatxt)
                         .append(valor)
                         .append(entrada)
-                        .append(editar)
                         .append(excluir);
 
                     $('#tabelaMovimentação tbody').append(tr);

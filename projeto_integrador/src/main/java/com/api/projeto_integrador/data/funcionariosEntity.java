@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
@@ -23,7 +24,7 @@ public class funcionariosEntity {
     @Size(min=3, message="Digite um nome com no minino 2 caracterees")
     private String nome;
     
-    @NotBlank(message="Idade obrigatorio")
+    @NotNull(message="Idade obrigatorio")
     @Min(16)
     private Integer idade;
     
@@ -34,7 +35,7 @@ public class funcionariosEntity {
     @NotBlank(message="Cargo obrigatorio")
     private String cargo;
     
-    @NotBlank(message="Salario Obrigatorio")
+    @NotNull(message="Salario Obrigatorio")
     private double salario;
     
 }
