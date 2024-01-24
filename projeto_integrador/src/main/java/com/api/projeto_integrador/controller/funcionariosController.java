@@ -51,9 +51,17 @@ public class funcionariosController {
     
     public ResponseEntity<funcionariosEntity> addFuncionario(@Valid@RequestBody funcionariosEntity func){
         
+        if(func.getSalario() <= 1500){
+            
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            
+        }else{
+        
         var novoFuncionario = funcionariosService.criarFuncionario(func);
         
         return new ResponseEntity<>(novoFuncionario, HttpStatus.CREATED);
+        
+        }
         
     }
     

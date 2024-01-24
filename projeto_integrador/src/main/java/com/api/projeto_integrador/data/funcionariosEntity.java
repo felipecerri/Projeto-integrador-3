@@ -36,6 +36,7 @@ public class funcionariosEntity {
     private String cargo;
     
     @NotNull(message="Salario Obrigatorio")
+    @Min(1)
     private double salario;
     
 }
