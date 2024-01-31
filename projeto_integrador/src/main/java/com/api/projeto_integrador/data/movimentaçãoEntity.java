@@ -24,13 +24,12 @@ public class movimentaçãoEntity {
     private String descr;
     
     @NotNull(message="Valor obrigatorio")
-    @Min(0)
+    @Min(1)
     private double valor;
     
     @NotBlank(message="Data obrigatoria")
     private String data;
     
-    @NotBlank(message="Entrada obrigatoria")
     private boolean entrada;
     
 }
